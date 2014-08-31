@@ -1,6 +1,7 @@
 # lib/converters/base_converter.rb
 
 # Require all of the importers and exporters automatically.
+Dir[File.join __dir__, *%w(exporters *.rb)].each { |f| require f }
 Dir[File.join __dir__, *%w(importers *.rb)].each { |f| require f }
 
 class BaseConverter
@@ -15,6 +16,13 @@ class BaseConverter
   def default_importer
     :csv
   end # method default_importer
+
+  def export options = {}
+    raise StandardError.new 'no imported data' if @hashed_data.nil?
+
+    exporter = constantize("#{options.fetch(:format, default_exporter).upcase}Exporter").new
+    exporter.export(@hashed_data)
+  end # method export
 
   def import raw_data, options = {}
     @raw_data = raw_data

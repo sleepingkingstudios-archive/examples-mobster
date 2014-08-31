@@ -4,6 +4,7 @@ require 'converters/base_converter'
 
 RSpec.describe BaseConverter do
   include Spec::Contexts::CSVData
+  include Spec::Contexts::HashedData
 
   let(:instance) { described_class.new }
 
@@ -27,6 +28,28 @@ RSpec.describe BaseConverter do
 
   describe '#raw_data' do
     it { expect(instance).to have_reader(:raw_data).with(nil) }
+  end # describe
+
+  describe '#export' do
+    it { expect(instance).to respond_to(:export).with(0..1).arguments }
+
+    describe 'without hashed data' do
+      it 'raises an error' do
+        expect { instance.export }.to raise_error 'no imported data'
+      end # it
+    end # describe
+
+    describe 'with hashed data', :hashed_data do
+      before(:each) { instance.hashed_data = hashed_data }
+
+      describe 'with default options' do
+        let(:json_data) { JSON.generate hashed_data }
+
+        it 'returns the data as JSON' do
+          expect(instance.export).to be == json_data
+        end # it
+      end # describe
+    end # describe
   end # describe
 
   describe '#import' do
