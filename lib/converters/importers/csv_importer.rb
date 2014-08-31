@@ -30,8 +30,8 @@ class CSVImporter
     hsh
   end # method extract_line
 
-  def extract_value str
-    value = str.chomp
+  def extract_value string
+    value = string.chomp
 
     case
     when value.empty?

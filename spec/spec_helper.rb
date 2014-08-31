@@ -3,6 +3,10 @@
 require 'pry'
 require 'rspec/sleeping_king_studios'
 
+# Requires supporting ruby files with custom matchers and macros, etc, in
+# spec/support/ and its subdirectories.
+Dir[File.join __dir__, *%w(support ** *.rb)].each { |f| require f }
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # Limit a spec run to individual examples or groups you care about by tagging
