@@ -9,6 +9,8 @@ Dir[File.join __dir__, *%w(support ** *.rb)].each { |f| require f }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.expose_dsl_globally = false
+  
   # Limit a spec run to individual examples or groups you care about by tagging
   # them with `:focus` metadata.
   config.filter_run :focus

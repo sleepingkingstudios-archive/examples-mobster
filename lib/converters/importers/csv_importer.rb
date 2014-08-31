@@ -36,7 +36,7 @@ class CSVImporter
     case
     when value.empty?
       nil
-    when value =~ /-?[0-9]+/
+    when value =~ /\A-?[0-9]+\z/
       value.to_i
     else
       value
