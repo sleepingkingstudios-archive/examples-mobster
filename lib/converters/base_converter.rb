@@ -21,7 +21,7 @@ class BaseConverter
     raise StandardError.new 'no imported data' if @hashed_data.nil?
 
     exporter = constantize("#{options.fetch(:format, default_exporter).upcase}Exporter").new
-    exporter.export(@hashed_data)
+    exporter.export(@hashed_data, options)
   end # method export
 
   def import raw_data, options = {}

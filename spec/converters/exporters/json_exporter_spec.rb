@@ -12,7 +12,7 @@ RSpec.describe JSONExporter do
   end # describe
 
   describe '#export' do
-    it { expect(instance).to respond_to(:export).with(1).argument }
+    it { expect(instance).to respond_to(:export).with(1..2).arguments }
 
     describe 'with hashed data', :hashed_data do
       it 'converts the data to JSON' do
